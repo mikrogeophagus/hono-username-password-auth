@@ -1,11 +1,11 @@
 import { serve } from "@hono/node-server"
 import { Hono } from "hono"
 
+import { indexRouter } from "./routes/index.js"
+
 const app = new Hono()
 
-app.get("/", (c) => {
-  return c.text("Hello Hono!")
-})
+app.route("/", indexRouter)
 
 serve(
   {
