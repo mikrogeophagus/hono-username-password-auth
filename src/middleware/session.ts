@@ -1,13 +1,11 @@
 import { createMiddleware } from "hono/factory"
 import { getCookie } from "hono/cookie"
-import { PrismaClient } from "@prisma/client"
+import { prisma } from "../lib/db.js"
 import {
   deleteSessionTokenCookie,
   setSessionTokenCookie,
   validateSessionToken,
 } from "../lib/session.js"
-
-const prisma = new PrismaClient()
 
 export const sessionMiddleware = createMiddleware(async (c, next) => {
   const token = getCookie(c, "session")
