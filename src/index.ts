@@ -3,12 +3,16 @@ import { Hono } from "hono"
 import { csrf } from "hono/csrf"
 import { secureHeaders } from "hono/secure-headers"
 
+import { sessionMiddleware } from "./middleware/session.js"
+
 import { indexRouter } from "./routes/index.js"
 
 const app = new Hono()
 
 app.use(csrf())
 app.use(secureHeaders({ referrerPolicy: "strict-origin-when-cross-origin" }))
+
+app.use(sessionMiddleware)
 
 app.route("/", indexRouter)
 
