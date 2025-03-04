@@ -7,6 +7,7 @@ import { sessionMiddleware } from "./middleware/session.js"
 
 import { indexRouter } from "./routes/index.js"
 import { loginRouter } from "./routes/login.js"
+import { signupRouter } from "./routes/signup.js"
 
 const app = new Hono()
 
@@ -17,6 +18,7 @@ app.use(sessionMiddleware)
 
 app.route("/", indexRouter)
 app.route("/", loginRouter)
+app.route("/", signupRouter)
 
 serve(
   {
