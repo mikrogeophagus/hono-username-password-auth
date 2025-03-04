@@ -9,6 +9,9 @@ export function Top({ title }: TopProps) {
     <Layout title={title}>
       <h1>{title}</h1>
       <p>Welcome to {title}</p>
+      <form action="/logout" method="post">
+        <button type="submit">ログアウト</button>
+      </form>
     </Layout>
   )
 }
