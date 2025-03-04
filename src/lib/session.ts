@@ -105,36 +105,23 @@ export function setSessionTokenCookie(
   expiresAt: Date,
 ): void {
   const { NODE_ENV } = env<{ NODE_ENV: string }>(c, "node")
+  const isProd = NODE_ENV === "production"
 
-  if (NODE_ENV === "production") {
-    setCookie(c, "session", token, {
-      httpOnly: true,
-      sameSite: "Lax",
-      expires: expiresAt,
-      path: "/",
-      secure: true,
-    })
-  } else {
-    setCookie(c, "session", token, {
-      httpOnly: true,
-      sameSite: "Lax",
-      expires: expiresAt,
-      path: "/",
-    })
-  }
+  setCookie(c, "session", token, {
+    httpOnly: true,
+    sameSite: "Lax",
+    expires: expiresAt,
+    path: "/",
+    secure: isProd,
+  })
 }
 
 export function deleteSessionTokenCookie(c: Context): void {
   const { NODE_ENV } = env<{ NODE_ENV: string }>(c, "node")
+  const isProd = NODE_ENV === "production"
 
-  if (NODE_ENV === "production") {
-    deleteCookie(c, "session", {
-      path: "/",
-      secure: true,
-    })
-  } else {
-    deleteCookie(c, "session", {
-      path: "/",
-    })
-  }
+  deleteCookie(c, "session", {
+    path: "/",
+    secure: isProd,
+  })
 }
