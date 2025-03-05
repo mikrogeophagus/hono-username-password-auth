@@ -46,7 +46,7 @@ loginRouter.post(
       if (!result.success) {
         return c.html(
           <Login
-            values={result.data}
+            values={{ email: result.data.email }}
             errors={result.error.flatten().fieldErrors}
           />,
           200,

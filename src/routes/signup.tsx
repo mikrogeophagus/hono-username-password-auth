@@ -55,7 +55,7 @@ signupRouter.post(
       if (!result.success) {
         return c.html(
           <Signup
-            values={result.data}
+            values={{ email: result.data.email }}
             errors={result.error.flatten().fieldErrors}
           />,
           200,
@@ -102,7 +102,7 @@ signupRouter.post(
         )
       }
 
-      return c.html(<Signup />, 200)
+      return c.html(<Signup values={{ email }} />, 200)
     }
   },
 )

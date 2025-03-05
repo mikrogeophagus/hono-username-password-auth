@@ -3,8 +3,6 @@ import { Layout } from "./Layout.js"
 interface SignupProps {
   values?: {
     email?: string
-    password?: string
-    confirmPassword?: string
   }
 
   errors?: {
@@ -37,7 +35,6 @@ export function Signup({ values, errors }: SignupProps) {
             type="password"
             name="password"
             id="password"
-            value={values?.password}
             autocomplete={"new-password"}
             required
           />
@@ -49,7 +46,6 @@ export function Signup({ values, errors }: SignupProps) {
             type="password"
             name="confirmPassword"
             id="confirmPassword"
-            value={values?.confirmPassword}
             autocomplete={"new-password"}
             required
           />

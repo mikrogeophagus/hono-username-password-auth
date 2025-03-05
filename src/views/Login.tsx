@@ -3,7 +3,6 @@ import { Layout } from "./Layout.js"
 interface LoginProps {
   values?: {
     email?: string
-    password?: string
   }
 
   errors?: {
@@ -35,7 +34,6 @@ export function Login({ values, errors }: LoginProps) {
             type="password"
             name="password"
             id="password"
-            value={values?.password}
             autocomplete={"current-password"}
             required
           />
