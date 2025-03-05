@@ -27,7 +27,7 @@ export function Login({ values, errors }: LoginProps) {
             autocomplete={"email"}
             required
           />
-          <div>{errors?.email?.map((error) => <div>{error}</div>)}</div>
+          {errors?.email?.map((error) => <div>{error}</div>)}
         </div>
         <div>
           <label htmlFor="password">パスワード</label>
@@ -39,7 +39,7 @@ export function Login({ values, errors }: LoginProps) {
             autocomplete={"current-password"}
             required
           />
-          <div>{errors?.password?.map((error) => <div>{error}</div>)}</div>
+          {errors?.password?.map((error) => <div>{error}</div>)}
         </div>
         <button type="submit">ログイン</button>
       </form>

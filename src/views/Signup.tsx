@@ -29,7 +29,7 @@ export function Signup({ values, errors }: SignupProps) {
             autocomplete={"email"}
             required
           />
-          <div>{errors?.email?.map((error) => <div>{error}</div>)}</div>
+          {errors?.email?.map((error) => <div>{error}</div>)}
         </div>
         <div>
           <label htmlFor="password">パスワード</label>
@@ -41,7 +41,7 @@ export function Signup({ values, errors }: SignupProps) {
             autocomplete={"new-password"}
             required
           />
-          <div>{errors?.password?.map((error) => <div>{error}</div>)}</div>
+          {errors?.password?.map((error) => <div>{error}</div>)}
         </div>
         <div>
           <label htmlFor="confirmPassword">パスワード確認</label>
@@ -53,9 +53,7 @@ export function Signup({ values, errors }: SignupProps) {
             autocomplete={"new-password"}
             required
           />
-          <div>
-            {errors?.confirmPassword?.map((error) => <div>{error}</div>)}
-          </div>
+          {errors?.confirmPassword?.map((error) => <div>{error}</div>)}
         </div>
         <button type="submit">サインアップ</button>
       </form>
