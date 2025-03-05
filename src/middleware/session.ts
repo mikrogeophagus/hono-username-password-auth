@@ -19,7 +19,15 @@ export const sessionMiddleware = createMiddleware(async (c, next) => {
   const session = await validateSessionToken(token)
 
   if (session) {
-    const user = await prisma.user.findUnique({ where: { id: session.userId } })
+    const user = await prisma.user.findUnique({
+      where: { id: session.userId },
+      select: {
+        id: true,
+        email: true,
+        createdAt: true,
+        updatedAt: true,
+      },
+    })
     setSessionTokenCookie(c, token, session.expiresAt)
     c.set("session", session)
     c.set("user", user)
