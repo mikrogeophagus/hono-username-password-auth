@@ -71,7 +71,7 @@ loginRouter.post(
       )
     }
 
-    const validPassword = await verify(existingUser.password, password, {
+    const validPassword = await verify(existingUser.password_hash, password, {
       memoryCost: 19456,
       timeCost: 2,
       outputLen: 32,
