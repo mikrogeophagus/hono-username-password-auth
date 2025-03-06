@@ -18,24 +18,32 @@ export const sessionMiddleware = createMiddleware(async (c, next) => {
 
   const session = await validateSessionToken(token)
 
-  if (session) {
-    const user = await prisma.user.findUnique({
-      where: { id: session.userId },
-      select: {
-        id: true,
-        email: true,
-        createdAt: true,
-        updatedAt: true,
-      },
-    })
-    setSessionTokenCookie(c, token, session.expiresAt)
-    c.set("session", session)
-    c.set("user", user)
-  } else {
+  if (!session) {
     deleteSessionTokenCookie(c)
     c.set("session", null)
     c.set("user", null)
+    return await next()
   }
 
+  const user = await prisma.user.findUnique({
+    where: { id: session.userId },
+    select: {
+      id: true,
+      email: true,
+      createdAt: true,
+      updatedAt: true,
+    },
+  })
+
+  if (!user) {
+    deleteSessionTokenCookie(c)
+    c.set("session", null)
+    c.set("user", null)
+    return await next()
+  }
+
+  setSessionTokenCookie(c, token, session.expiresAt)
+  c.set("session", session)
+  c.set("user", user)
   await next()
 })
