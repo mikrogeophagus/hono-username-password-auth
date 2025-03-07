@@ -77,7 +77,7 @@ signupRouter.post(
       const user = await prisma.user.create({
         data: {
           email,
-          passwordHash: passwordHash,
+          passwordHash,
         },
       })
 
