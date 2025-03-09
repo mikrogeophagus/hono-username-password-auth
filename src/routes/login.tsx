@@ -1,7 +1,6 @@
 import { Hono } from "hono"
 import { zValidator } from "@hono/zod-validator"
 import { z } from "zod"
-import { verify } from "@node-rs/argon2"
 import { Login } from "../views/Login.js"
 import { prisma } from "../lib/db.js"
 import {
@@ -9,6 +8,7 @@ import {
   generateSessionToken,
   setSessionTokenCookie,
 } from "../lib/session.js"
+import { verifyPasswordHash } from "../lib/password.js"
 import type { Context } from "../lib/context.js"
 
 export const loginRouter = new Hono<Context>()
@@ -71,12 +71,10 @@ loginRouter.post(
       )
     }
 
-    const validPassword = await verify(existingUser.passwordHash, password, {
-      memoryCost: 19456,
-      timeCost: 2,
-      outputLen: 32,
-      parallelism: 1,
-    })
+    const validPassword = await verifyPasswordHash(
+      existingUser.passwordHash,
+      password,
+    )
 
     if (!validPassword) {
       return c.html(

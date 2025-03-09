@@ -1,7 +1,6 @@
 import { Hono } from "hono"
 import { zValidator } from "@hono/zod-validator"
 import { z } from "zod"
-import { hash } from "@node-rs/argon2"
 import { Signup } from "../views/Signup.js"
 import { prisma, isPrismaClientKnownRequestError } from "../lib/db.js"
 import {
@@ -9,6 +8,7 @@ import {
   generateSessionToken,
   setSessionTokenCookie,
 } from "../lib/session.js"
+import { hashPassword } from "../lib/password.js"
 import type { Context } from "../lib/context.js"
 
 export const signupRouter = new Hono<Context>()
@@ -66,12 +66,7 @@ signupRouter.post(
   async (c) => {
     const { email, password } = c.req.valid("form")
 
-    const passwordHash = await hash(password, {
-      memoryCost: 19456,
-      timeCost: 2,
-      outputLen: 32,
-      parallelism: 1,
-    })
+    const passwordHash = await hashPassword(password)
 
     try {
       const user = await prisma.user.create({
