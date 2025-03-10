@@ -8,10 +8,6 @@ import {
 import { sha256 } from "@oslojs/crypto/sha2"
 import { valkey } from "./valkey.js"
 
-const TOKEN_BYTE_LENGTH = 20
-const SESSION_DURATION_MS = 1000 * 60 * 60 * 24 * 30
-const SESSION_RENEWAL_THRESHOLD_MS = 1000 * 60 * 60 * 24 * 15
-
 export interface Session {
   id: string
   userId: number
@@ -19,7 +15,7 @@ export interface Session {
 }
 
 export function generateSessionToken(): string {
-  const bytes = new Uint8Array(TOKEN_BYTE_LENGTH)
+  const bytes = new Uint8Array(20)
   crypto.getRandomValues(bytes)
   const token = encodeBase32LowerCaseNoPadding(bytes)
   return token
@@ -33,7 +29,7 @@ export async function createSession(
   const session: Session = {
     id: sessionId,
     userId,
-    expiresAt: new Date(Date.now() + SESSION_DURATION_MS),
+    expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30),
   }
 
   await valkey.set(
@@ -74,11 +70,8 @@ export async function validateSessionToken(
   }
 
   // セッションの有効期限が近い場合は延長する
-  if (
-    Date.now() >=
-    session.expiresAt.getTime() - SESSION_RENEWAL_THRESHOLD_MS
-  ) {
-    session.expiresAt = new Date(Date.now() + SESSION_DURATION_MS)
+  if (Date.now() >= session.expiresAt.getTime() - 1000 * 60 * 60 * 24 * 15) {
+    session.expiresAt = new Date(Date.now() + 1000 * 60 * 60 * 24 * 30)
 
     await valkey.set(
       `session:${session.id}`,
