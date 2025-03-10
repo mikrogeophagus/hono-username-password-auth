@@ -11,11 +11,11 @@ export const env = createEnv({
 
     NODE_ENV: z.enum(["development", "production"]).default("development"),
 
-    // EMAIL_SERVER: z.string().url(),
-    // EMAIL_FROM: z.string().email(),
-
-    GOOGLE_EMAIL: z.string().email(),
-    GOOGLE_APP_PASSWORD: z.string(),
+    EMAIL_SERVER_HOST: z.string(),
+    EMAIL_SERVER_PORT: z.coerce.number().positive(),
+    EMAIL_SERVER_USER: z.string(),
+    EMAIL_SERVER_PASSWORD: z.string(),
+    EMAIL_FROM: z.string().email(),
   },
   runtimeEnv: process.env,
   emptyStringAsUndefined: true,

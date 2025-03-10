@@ -1,21 +1,25 @@
 import nodemailer, { type SendMailOptions } from "nodemailer"
 import { env } from "../env.js"
 
-// TODO: メールサーバを設定する
+const isDev = env.NODE_ENV === "development"
 
 const transporter = nodemailer.createTransport({
-  service: "gmail",
+  secure: true,
+  host: env.EMAIL_SERVER_HOST,
+  port: env.EMAIL_SERVER_PORT,
   auth: {
-    user: env.GOOGLE_EMAIL,
-    pass: env.GOOGLE_APP_PASSWORD,
+    user: env.EMAIL_SERVER_USER,
+    pass: env.EMAIL_SERVER_PASSWORD,
   },
+  debug: isDev,
+  logger: isDev,
 })
 
 export async function sendEmail(
   options: Omit<SendMailOptions, "from" | "sender" | "replyTo" | "inReplyTo">,
 ): Promise<void> {
   const info = await transporter.sendMail({
-    from: env.GOOGLE_EMAIL,
+    from: env.EMAIL_FROM,
     ...options,
   })
 
