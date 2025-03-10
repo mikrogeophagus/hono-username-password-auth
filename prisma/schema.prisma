@@ -14,9 +14,20 @@ datasource db {
 }
 
 model User {
-  id           Int      @id @default(autoincrement())
-  email        String   @unique
-  passwordHash String
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  id                        Int                        @id @default(autoincrement())
+  email                     String                     @unique
+  emailVerified             Boolean                    @default(false)
+  passwordHash              String
+  createdAt                 DateTime                   @default(now())
+  updatedAt                 DateTime                   @updatedAt
+  emailVerificationRequests EmailVerificationRequest[]
+}
+
+model EmailVerificationRequest {
+  id        String   @id
+  userId    Int
+  email     String
+  code      String
+  expiresAt DateTime
+  user      User     @relation(fields: [userId], references: [id])
 }
