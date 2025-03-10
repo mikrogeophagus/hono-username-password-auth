@@ -1,8 +1,7 @@
 import { Hono } from "hono"
 import { deleteSessionTokenCookie, invalidateSession } from "../lib/session.js"
-import type { Context } from "../lib/context.js"
 
-export const logoutRouter = new Hono<Context>()
+export const logoutRouter = new Hono()
 
 /**
  * POST /logout

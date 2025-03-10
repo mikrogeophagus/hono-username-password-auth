@@ -1,8 +1,7 @@
 import { Hono } from "hono"
 import { Top } from "../views/Top.js"
-import type { Context } from "../lib/context.js"
 
-export const indexRouter = new Hono<Context>()
+export const indexRouter = new Hono()
 
 indexRouter.get("/", (c) => {
   const user = c.get("user")

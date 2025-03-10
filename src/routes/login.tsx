@@ -9,9 +9,8 @@ import {
   setSessionTokenCookie,
 } from "../lib/session.js"
 import { verifyPasswordHash } from "../lib/password.js"
-import type { Context } from "../lib/context.js"
 
-export const loginRouter = new Hono<Context>()
+export const loginRouter = new Hono()
 
 /**
  * GET /login
