@@ -5,6 +5,7 @@ import {
   deleteSessionTokenCookie,
   setSessionTokenCookie,
   validateSessionToken,
+  invalidateSession,
 } from "../lib/session.js"
 
 export const sessionMiddleware = createMiddleware(async (c, next) => {
@@ -36,6 +37,7 @@ export const sessionMiddleware = createMiddleware(async (c, next) => {
   })
 
   if (!user) {
+    await invalidateSession(session.id)
     deleteSessionTokenCookie(c)
     c.set("session", null)
     c.set("user", null)
