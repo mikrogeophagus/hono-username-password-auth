@@ -1,0 +1,15 @@
+version: 2
+
+common: &common
+  directory: "/"
+  schedule:
+    interval: "weekly"
+  ignore:
+    - dependency-name: "*"
+      update-types: ["version-update:semver-major"]
+
+updates:
+  - package-ecosystem: "docker"
+    <<: *common
+  - package-ecosystem: "npm"
+    <<: *common
