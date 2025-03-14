@@ -12,9 +12,8 @@ import { hashPassword } from "../lib/password.js"
 
 export const signupRouter = new Hono()
 
-/**
- * GET /signup
- */
+// MARK: - GET /signup
+
 signupRouter.get("/signup", async (c) => {
   const session = c.get("session")
 
@@ -25,9 +24,8 @@ signupRouter.get("/signup", async (c) => {
   return c.html(<Signup />, 200)
 })
 
-/**
- * POST /signup
- */
+// MARK: - POST /signup
+
 signupRouter.post(
   "/signup",
   zValidator(

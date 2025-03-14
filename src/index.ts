@@ -12,15 +12,21 @@ import { logoutRouter } from "./routes/logout.js"
 
 const app = new Hono()
 
+// MARK: Middleware
+
 app.use(csrf())
 app.use(secureHeaders({ referrerPolicy: "strict-origin-when-cross-origin" }))
 
 app.use(sessionMiddleware)
 
+// MARK: Routes
+
 app.route("/", indexRouter)
 app.route("/", loginRouter)
 app.route("/", signupRouter)
 app.route("/", logoutRouter)
+
+// MARK: Server
 
 serve(
   {

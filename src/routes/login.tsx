@@ -12,9 +12,8 @@ import { verifyPasswordHash } from "../lib/password.js"
 
 export const loginRouter = new Hono()
 
-/**
- * GET /login
- */
+// MARK: - GET /login
+
 loginRouter.get("/login", async (c) => {
   const session = c.get("session")
 
@@ -25,9 +24,8 @@ loginRouter.get("/login", async (c) => {
   return c.html(<Login />, 200)
 })
 
-/**
- * POST /login
- */
+// MARK: - POST /login
+
 loginRouter.post(
   "/login",
   zValidator(

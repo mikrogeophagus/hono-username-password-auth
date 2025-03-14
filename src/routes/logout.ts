@@ -3,9 +3,8 @@ import { deleteSessionTokenCookie, invalidateSession } from "../lib/session.js"
 
 export const logoutRouter = new Hono()
 
-/**
- * POST /logout
- */
+// MARK: - POST /logout
+
 logoutRouter.post("/logout", async (c) => {
   const session = c.get("session")
 
