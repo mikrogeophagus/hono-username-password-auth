@@ -9,6 +9,7 @@ import { indexRouter } from "./routes/index.js"
 import { loginRouter } from "./routes/login.js"
 import { signupRouter } from "./routes/signup.js"
 import { logoutRouter } from "./routes/logout.js"
+import { verifyEmailRouter } from "./routes/verify-email.js"
 
 const app = new Hono()
 
@@ -25,6 +26,7 @@ app.route("/", indexRouter)
 app.route("/", loginRouter)
 app.route("/", signupRouter)
 app.route("/", logoutRouter)
+app.route("/", verifyEmailRouter)
 
 // MARK: Server
 

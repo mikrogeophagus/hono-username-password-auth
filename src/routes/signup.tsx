@@ -8,6 +8,13 @@ import {
   generateSessionToken,
   setSessionTokenCookie,
 } from "../lib/session.js"
+/*
+import {
+  createEmailVerificationRequest,
+  sendVerificationEmail,
+  setEmailVerificationRequestCookie,
+} from "../lib/email-verification.js"
+*/
 import { hashPassword } from "../lib/password.js"
 
 export const signupRouter = new Hono()
@@ -73,11 +80,23 @@ signupRouter.post(
         },
       })
 
+      /*
+      const emailVerificationRequest = await createEmailVerificationRequest(
+        user.id,
+        user.email,
+      )
+      await sendVerificationEmail(
+        emailVerificationRequest.email,
+        emailVerificationRequest.code,
+      )
+      setEmailVerificationRequestCookie(c, emailVerificationRequest)
+      */
+
       const token = generateSessionToken()
       const session = await createSession(token, user.id)
       setSessionTokenCookie(c, token, session.expiresAt)
 
-      return c.redirect("/")
+      return c.redirect("/verify-email")
     } catch (error) {
       const isUniqueConstraintViolation =
         isPrismaClientKnownRequestError(error) && error.code === "P2002"

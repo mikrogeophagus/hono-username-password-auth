@@ -6,6 +6,7 @@ interface TopProps {
   user?: {
     id: number
     email: string
+    emailVerified: boolean
   }
 }
 
@@ -19,7 +20,17 @@ export function Top({ title, user }: TopProps) {
         <>
           <ul>
             <li>ユーザ ID: {user.id}</li>
-            <li>メールアドレス: {user.email}</li>
+            <li>
+              メールアドレス: {user.email}
+              {user.emailVerified && (
+                <span
+                  style={{ margin: "0 0.5em" }}
+                  title="このメールアドレスは認証されています"
+                >
+                  &#x2705;
+                </span>
+              )}
+            </li>
           </ul>
           <form action="/logout" method="post">
             <button type="submit">ログアウト</button>

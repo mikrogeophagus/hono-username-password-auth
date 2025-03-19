@@ -31,6 +31,7 @@ export const sessionMiddleware = createMiddleware(async (c, next) => {
     select: {
       id: true,
       email: true,
+      emailVerified: true,
       createdAt: true,
       updatedAt: true,
     },
