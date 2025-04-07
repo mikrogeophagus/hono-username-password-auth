@@ -24,7 +24,7 @@
     "@eslint/js": "9.24.0",
     "@types/node": "20.17.28",
     "@types/nodemailer": "6.4.17",
-    "eslint": "9.23.0",
+    "eslint": "9.24.0",
     "eslint-config-prettier": "10.1.1",
     "eslint-plugin-react": "7.37.4",
     "globals": "16.0.0",
