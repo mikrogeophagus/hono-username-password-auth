@@ -29,7 +29,7 @@
     "eslint-plugin-react": "7.37.5",
     "globals": "16.0.0",
     "prettier": "3.5.3",
-    "prisma": "6.5.0",
+    "prisma": "6.6.0",
     "tsx": "4.19.3",
     "typescript-eslint": "8.29.1"
   }
